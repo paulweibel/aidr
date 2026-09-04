@@ -1,0 +1,12 @@
+{
+  "eventSource": "bedrock.amazonaws.com",
+  "eventName": "DeleteGuardrail",
+  "awsRegion": "us-west-2",
+  "sourceIPAddress": "198.51.100.23",
+  "userIdentity": {
+    "arn": "arn:aws:iam::111122223333:user/ml-pipeline"
+  },
+  "requestParameters": {
+    "guardrailIdentifier": "gr-prod-pii"
+  }
+}

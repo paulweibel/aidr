@@ -1,0 +1,12 @@
+{
+  "eventSource": "bedrock.amazonaws.com",
+  "eventName": "UpdateGuardrail",
+  "awsRegion": "us-west-2",
+  "sourceIPAddress": "203.0.113.40",
+  "userIdentity": {
+    "arn": "arn:aws:iam::111122223333:role/mlops"
+  },
+  "requestParameters": {
+    "guardrailIdentifier": "gr-prod-pii"
+  }
+}

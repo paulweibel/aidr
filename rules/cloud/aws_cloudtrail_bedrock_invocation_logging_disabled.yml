@@ -1,0 +1,39 @@
+title: AWS Bedrock Model Invocation Logging Disabled
+id: 804f1ee5-5d36-4fe8-a20e-2e25c1f9efb1
+status: experimental
+description: |
+    Detects deletion of the Amazon Bedrock model invocation logging configuration via
+    CloudTrail. Invocation logging is the only record of prompt and completion payloads;
+    once it is removed, an attacker with stolen credentials can run inference (LLMjacking)
+    or exfiltrate data through the model without leaving payload-level traces. Legitimate
+    deletions are rare and should map to a change record. Splunk maintains an SPL-native
+    equivalent in security_content; this rule keeps the logic in portable Sigma and adds
+    the recon-then-disable sequence as a separate correlation
+    (rules/correlations/aws_cloudtrail_bedrock_logging_recon_then_disable.yml).
+references:
+    - https://docs.aws.amazon.com/bedrock/latest/userguide/model-invocation-logging.html
+    - https://sysdig.com/blog/llmjacking-stolen-cloud-credentials-used-in-new-ai-attack/
+    - https://research.splunk.com/cloud/9c5e3d62-f743-11ee-9f6e-acde48001124/
+    - https://www.abstract.security/blog/detecting-aws-bedrock-abuse-from-llmjacking-to-the-hidden-attack-vectors
+author: Paul Weibel
+date: 2026-08-29
+tags:
+    - attack.defense-impairment
+    - attack.t1685.002
+    - atlas.aml.t0012
+logsource:
+    product: aws
+    service: cloudtrail
+detection:
+    selection:
+        eventSource: 'bedrock.amazonaws.com'
+        eventName: 'DeleteModelInvocationLoggingConfiguration'
+    condition: selection
+fields:
+    - userIdentity.arn
+    - sourceIPAddress
+    - awsRegion
+falsepositives:
+    - Cloud engineering decommissioning a Bedrock deployment. Should correlate with a
+      change ticket; alert-and-verify is still the right posture given the low volume.
+level: high

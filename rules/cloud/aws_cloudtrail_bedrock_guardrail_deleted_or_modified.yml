@@ -1,0 +1,39 @@
+title: AWS Bedrock Guardrail Deleted or Modified
+id: ec5b9c0e-8cff-4a0e-99a9-1e8fa90b91cd
+status: experimental
+description: |
+    Detects deletion or modification of an Amazon Bedrock guardrail via CloudTrail.
+    Guardrails enforce content policy, denied topics and PII handling on model traffic;
+    weakening or removing one is a precondition for abusing a compromised account to
+    generate harmful output or extract sensitive data. Deletions are near-zero volume in
+    most accounts. Updates are noisier where teams iterate on guardrail policy, so triage
+    UpdateGuardrail against change management before paging.
+references:
+    - https://docs.aws.amazon.com/bedrock/latest/userguide/guardrails.html
+    - https://research.splunk.com/cloud/7a5e3d62-f743-11ee-9f6e-acde48001122/
+    - https://docs.aws.amazon.com/bedrock/latest/userguide/logging-using-cloudtrail.html
+author: Paul Weibel
+date: 2026-08-29
+tags:
+    - attack.defense-impairment
+    - attack.t1685
+    - atlas.aml.t0054
+    - owasp.llm01
+logsource:
+    product: aws
+    service: cloudtrail
+detection:
+    selection:
+        eventSource: 'bedrock.amazonaws.com'
+        eventName:
+            - 'DeleteGuardrail'
+            - 'UpdateGuardrail'
+    condition: selection
+fields:
+    - userIdentity.arn
+    - sourceIPAddress
+    - requestParameters.guardrailIdentifier
+falsepositives:
+    - Iterative guardrail policy development by ML platform teams (UpdateGuardrail).
+      Scope those principals to a suppression window or route updates to a lower severity.
+level: medium
