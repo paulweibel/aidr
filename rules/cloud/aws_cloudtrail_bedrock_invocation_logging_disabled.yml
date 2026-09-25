@@ -7,9 +7,8 @@ description: |
     once it is removed, an attacker with stolen credentials can run inference (LLMjacking)
     or exfiltrate data through the model without leaving payload-level traces. Legitimate
     deletions are rare and should map to a change record. Splunk maintains an SPL-native
-    equivalent in security_content; this rule keeps the logic in portable Sigma and adds
-    the recon-then-disable sequence as a separate correlation
-    (rules/correlations/aws_cloudtrail_bedrock_logging_recon_then_disable.yml).
+    equivalent in security_content; this rule keeps the logic in portable Sigma. A
+    recon-then-disable correlation is planned.
 references:
     - https://docs.aws.amazon.com/bedrock/latest/userguide/model-invocation-logging.html
     - https://sysdig.com/blog/llmjacking-stolen-cloud-credentials-used-in-new-ai-attack/

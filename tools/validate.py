@@ -8,7 +8,7 @@ enforces the stricter house policy on top of it:
   useful length, references, explicit false positives, severity);
 * IDs are unique v4 UUIDs and titles are unique;
 * tags follow the documented grammar, including the extended ``atlas.`` and
-  ``owasp.`` namespaces this repo defines (see CONTRIBUTING.md);
+  ``owasp.`` namespaces this repo defines;
 * every single-event rule has at least one true-positive and one
   false-positive fixture under tests/events/, keyed by rule id;
 * correlation documents reference rule names that exist in the same file.
