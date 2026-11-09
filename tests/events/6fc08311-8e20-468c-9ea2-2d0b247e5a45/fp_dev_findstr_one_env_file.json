@@ -1,0 +1,13 @@
+{
+  "EventID": 1,
+  "UtcTime": "2026-11-09 16:52:50.326",
+  "Computer": "DESKTOP-OEEP7B5",
+  "User": "DESKTOP-OEEP7B5\\labuser",
+  "IntegrityLevel": "High",
+  "Image": "C:\\Windows\\System32\\findstr.exe",
+  "OriginalFileName": "FINDSTR.EXE",
+  "CommandLine": "findstr  OPENAI_API_KEY .env ",
+  "CurrentDirectory": "C:\\Users\\labuser\\source\\repos\\chat-app\\",
+  "ParentImage": "C:\\Windows\\System32\\cmd.exe",
+  "ParentCommandLine": "\"C:\\WINDOWS\\system32\\cmd.exe\" /c findstr OPENAI_API_KEY .env "
+}

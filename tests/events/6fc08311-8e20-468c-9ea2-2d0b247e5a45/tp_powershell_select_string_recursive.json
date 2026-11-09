@@ -1,0 +1,13 @@
+{
+  "EventID": 1,
+  "UtcTime": "2026-11-09 16:51:48.508",
+  "Computer": "DESKTOP-OEEP7B5",
+  "User": "DESKTOP-OEEP7B5\\labuser",
+  "IntegrityLevel": "High",
+  "Image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+  "OriginalFileName": "PowerShell.EXE",
+  "CommandLine": "\"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\" -NoProfile -Command \"Get-ChildItem -Path $env:USERPROFILE -Recurse -Force -File -Include .env,.env.*,*.json -ErrorAction SilentlyContinue | Select-String -Pattern 'sk-ant-','sk-proj-','OPENAI_API_KEY','ANTHROPIC_API_KEY' -List | Select-Object -ExpandProperty Path\" ",
+  "CurrentDirectory": "C:\\Users\\labuser\\",
+  "ParentImage": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+  "ParentCommandLine": "\"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\" -NoProfile -ExecutionPolicy Bypass -File Z:\\run-activity.ps1 -LogPath Z:\\steps.jsonl"
+}

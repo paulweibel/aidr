@@ -1,0 +1,12 @@
+{
+  "EventID": 1,
+  "Computer": "DESKTOP-OEEP7B5",
+  "User": "DESKTOP-OEEP7B5\\labuser",
+  "IntegrityLevel": "High",
+  "Image": "C:\\Windows\\System32\\findstr.exe",
+  "OriginalFileName": "FINDSTR.EXE",
+  "CommandLine": "findstr  /si /m /c:\"sk-ant-\" /c:\"OPENAI_API_KEY\" *.env *.json ",
+  "CurrentDirectory": "C:\\Users\\labuser\\",
+  "ParentImage": "C:\\Windows\\System32\\cmd.exe",
+  "ParentCommandLine": "\"C:\\WINDOWS\\system32\\cmd.exe\" /c findstr /si /m /c:\"sk-ant-\" /c:\"OPENAI_API_KEY\" *.env *.json "
+}

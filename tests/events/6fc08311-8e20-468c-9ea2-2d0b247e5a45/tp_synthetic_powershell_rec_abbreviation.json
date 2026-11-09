@@ -1,0 +1,12 @@
+{
+  "EventID": 1,
+  "Computer": "DESKTOP-OEEP7B5",
+  "User": "DESKTOP-OEEP7B5\\labuser",
+  "IntegrityLevel": "High",
+  "Image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+  "OriginalFileName": "PowerShell.EXE",
+  "CommandLine": "\"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\" -NoProfile -Command \"gci $env:USERPROFILE -rec -include *.env | sls 'sk-proj-' -List\"",
+  "CurrentDirectory": "C:\\Users\\labuser\\",
+  "ParentImage": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+  "ParentCommandLine": "\"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\""
+}

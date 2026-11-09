@@ -1,0 +1,13 @@
+{
+  "EventID": 1,
+  "UtcTime": "2026-11-09 16:54:03.455",
+  "Computer": "DESKTOP-OEEP7B5",
+  "User": "DESKTOP-OEEP7B5\\labuser",
+  "IntegrityLevel": "High",
+  "Image": "C:\\Windows\\System32\\notepad.exe",
+  "OriginalFileName": "NOTEPAD.EXE",
+  "CommandLine": "\"C:\\WINDOWS\\system32\\notepad.exe\" \"C:\\Users\\labuser\\AppData\\Roaming\\Claude\\claude_desktop_config.json\" ",
+  "CurrentDirectory": "C:\\Users\\labuser\\",
+  "ParentImage": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+  "ParentCommandLine": "\"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\" -NoProfile -ExecutionPolicy Bypass -File Z:\\run-activity.ps1 -LogPath Z:\\steps.jsonl"
+}

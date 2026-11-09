@@ -1,12 +1,14 @@
-# aidr — detections for the GenAI attack surface
+# aidr: detections for the GenAI attack surface
 
 [![tests](https://github.com/paulweibel/aidr/actions/workflows/ci.yml/badge.svg)](https://github.com/paulweibel/aidr/actions/workflows/ci.yml)
 
 Detection-as-code for the ways organizations actually get hurt by and through
 LLMs. First cut is the cloud control plane: AWS Bedrock logging tamper and
-guardrail removal, from CloudTrail. Rules are Sigma, and every event rule
-ships with true-positive and false-positive fixtures that CI evaluates on
-every commit.
+guardrail removal, from CloudTrail. The endpoint work starts one step
+earlier: a hypothesis-first hunt for AI API key harvesting on a developer's
+Windows machine, and the Sysmon rule it produced. Rules are Sigma, and every
+event rule comes with true-positive and false-positive fixtures that CI
+evaluates on every commit.
 
 This started as the detection backlog I wanted to exist while watching GenAI
 tooling spread through an enterprise faster than its logging did.
@@ -16,6 +18,10 @@ tooling spread through an enterprise faster than its logging did.
 ```
 rules/cloud/      2 Sigma rules (CloudTrail): Bedrock invocation logging
                   disabled, guardrail deleted or modified
+rules/endpoint/   1 Sigma rule (Sysmon): recursive search for AI API keys
+                  by a shell or findstr
+hunts/            hypothesis-first hunts: the lab, the SPL searches, the
+                  results, the false positives and what the hunt missed
 tests/            TP/FP fixtures per rule under tests/events/<rule id>/,
                   per-rule regression tests, evaluator unit tests
 tools/            repo policy validator and the minimal Sigma evaluator
@@ -27,17 +33,17 @@ tools/            repo policy validator and the minimal Sigma evaluator
 
 ```bash
 pip install pytest pyyaml
-pytest                      # 14 tests
+pytest                      # 24 tests
 python tools/validate.py    # repo policy
 ```
 
-## Design decisions worth arguing about
+## Design decisions open to debate
 
 - **Fixtures are mandatory.** The validator refuses any event rule without at
   least one true-positive and one false-positive event under `tests/events/`.
   A reported false positive gets fixed by adding the offending event as a
   fixture, so it can never quietly return.
-- **Declared false positives are mandatory.** Every rule names the benign
+- **Declared false positives are mandatory.** A rule must list the benign
   activity it will collide with. The guardrail rule naming ML teams that
   iterate on guardrail policy, and sending `UpdateGuardrail` through change
   management before paging, is the level of specificity this policy is meant
@@ -51,9 +57,10 @@ python tools/validate.py    # repo policy
 
 ## Limitations, stated plainly
 
-Two rules, one data source. The test harness evaluates the Sigma subset these
-rules use, not the whole specification; production matching belongs to real
-backends, and pySigma converts these rules cleanly.
+Three rules, two data sources, and a hunt from one lab VM. The test
+harness evaluates the Sigma subset these rules use, not the whole
+specification; production matching belongs to real backends, and pySigma
+converts the two cloud rules cleanly.
 
 ## Next
 

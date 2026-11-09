@@ -1,0 +1,63 @@
+title: Recursive Search for AI API Keys by a Shell or findstr
+id: 6fc08311-8e20-468c-9ea2-2d0b247e5a45
+status: experimental
+description: |
+    Detects a command shell or findstr searching files recursively for AI provider API
+    keys, by key prefix (sk-ant-, sk-proj-) or environment variable name. This is the
+    collection stage of LLMjacking: harvested keys are resold or used to run inference
+    on the victim's account. Built from a hypothesis-first hunt in a Sysmon lab
+    (hunts/2026-11-09-ai-key-harvest). A developer looking at their own .env file does
+    not trigger it; the recursion flag is what marks a sweep. Recursion covers
+    findstr's /s alone or combined (/si, /is), and PowerShell's -Recurse, its short
+    forms (-rec) and -Depth. A sweep run through cmd.exe raises two events, cmd.exe and
+    the findstr.exe it spawns; group them by ParentProcessGuid. Blind spot: a harvester
+    that reads files inside its own process (a script file, Python, a compiled tool)
+    puts no key marker on the command line, and Sysmon does not log file reads, so
+    object access auditing (4663) on canary files is the next step.
+references:
+    - https://attack.mitre.org/techniques/T1552/001/
+    - https://github.com/redcanaryco/atomic-red-team/blob/master/atomics/T1552.001/T1552.001.md
+    - https://sysdig.com/blog/llmjacking-stolen-cloud-credentials-used-in-new-ai-attack/
+author: Paul Weibel
+date: 2026-11-09
+tags:
+    - attack.credential-access
+    - attack.t1552.001
+    - atlas.aml.t0055
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection_img:
+        Image|endswith:
+            - '\findstr.exe'
+            - '\cmd.exe'
+            - '\powershell.exe'
+            - '\pwsh.exe'
+    selection_key:
+        CommandLine|contains:
+            - 'sk-ant-'
+            - 'sk-proj-'
+            - 'OPENAI_API_KEY'
+            - 'ANTHROPIC_API_KEY'
+    selection_recursive:
+        CommandLine|contains:
+            - ' /s '
+            - ' /si'
+            - ' /is'
+            - '-rec'
+            - '-depth'
+            - ' -r '
+    condition: all of selection_*
+fields:
+    - User
+    - ParentImage
+    - CurrentDirectory
+    - CommandLine
+falsepositives:
+    - An engineer searching a repository or home folder for leaked keys with a quick
+      recursive search. Confirm with the user before escalating; a repeat from the same
+      user and folder is a tuning candidate.
+    - Secret scanning tools that call out to findstr or PowerShell. Most run as their
+      own binary, so they do not match.
+level: medium

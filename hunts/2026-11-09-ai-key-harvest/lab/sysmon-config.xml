@@ -1,0 +1,36 @@
+<!--
+  Sysmon config for the AI API key harvesting hunt (ATT&CK T1552.001).
+  Schema 4.91, Sysmon 15.22. Lab only: it logs every process creation and
+  leaves the filtering to the hunt searches. Process termination (Event ID 5)
+  is not filtered here, so Sysmon logs it by default.
+
+  Install inside the lab VM:  Sysmon64.exe -i sysmon-config.xml
+-->
+<Sysmon schemaversion="4.91">
+  <HashAlgorithms>SHA256</HashAlgorithms>
+  <CheckRevocation>False</CheckRevocation>
+  <EventFiltering>
+
+    <!-- Event ID 1: every process creation. An empty exclude list logs all. -->
+    <RuleGroup name="" groupRelation="or">
+      <ProcessCreate onmatch="exclude" />
+    </RuleGroup>
+
+    <!-- Event ID 11: files that hold AI API keys or AI tool config, created
+         or overwritten. Sysmon logs no reads, so this shows seeding and
+         tampering, not harvesting (see the README's blind spot). -->
+    <RuleGroup name="" groupRelation="or">
+      <FileCreate onmatch="include">
+        <TargetFilename name="dotenv" condition="end with">\.env</TargetFilename>
+        <TargetFilename name="dotenv_variant" condition="contains">\.env.</TargetFilename>
+        <TargetFilename name="openai_dir" condition="contains">\.openai\</TargetFilename>
+        <TargetFilename name="anthropic_dir" condition="contains">\.anthropic\</TargetFilename>
+        <TargetFilename name="claude_dir" condition="contains">\.claude\</TargetFilename>
+        <TargetFilename name="cursor_dir" condition="contains">\.cursor\</TargetFilename>
+        <TargetFilename name="claude_desktop" condition="end with">\claude_desktop_config.json</TargetFilename>
+        <TargetFilename name="mcp_config" condition="end with">\mcp.json</TargetFilename>
+      </FileCreate>
+    </RuleGroup>
+
+  </EventFiltering>
+</Sysmon>

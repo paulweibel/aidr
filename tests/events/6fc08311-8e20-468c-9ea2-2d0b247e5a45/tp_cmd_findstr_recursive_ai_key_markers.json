@@ -1,0 +1,13 @@
+{
+  "EventID": 1,
+  "UtcTime": "2026-11-09 16:51:45.464",
+  "Computer": "DESKTOP-OEEP7B5",
+  "User": "DESKTOP-OEEP7B5\\labuser",
+  "IntegrityLevel": "High",
+  "Image": "C:\\Windows\\System32\\cmd.exe",
+  "OriginalFileName": "Cmd.Exe",
+  "CommandLine": "\"C:\\WINDOWS\\system32\\cmd.exe\" /c findstr /s /i /m /c:\"sk-ant-\" /c:\"sk-proj-\" /c:\"OPENAI_API_KEY\" /c:\"ANTHROPIC_API_KEY\" *.env *.env.* *.json ",
+  "CurrentDirectory": "C:\\Users\\labuser\\",
+  "ParentImage": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+  "ParentCommandLine": "\"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\" -NoProfile -ExecutionPolicy Bypass -File Z:\\run-activity.ps1 -LogPath Z:\\steps.jsonl"
+}

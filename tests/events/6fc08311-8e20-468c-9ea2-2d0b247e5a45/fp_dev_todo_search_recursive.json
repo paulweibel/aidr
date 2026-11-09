@@ -1,0 +1,13 @@
+{
+  "EventID": 1,
+  "UtcTime": "2026-11-09 16:53:56.478",
+  "Computer": "DESKTOP-OEEP7B5",
+  "User": "DESKTOP-OEEP7B5\\labuser",
+  "IntegrityLevel": "High",
+  "Image": "C:\\Windows\\System32\\findstr.exe",
+  "OriginalFileName": "FINDSTR.EXE",
+  "CommandLine": "findstr  /s /i /n TODO *.py *.js ",
+  "CurrentDirectory": "C:\\Users\\labuser\\source\\repos\\",
+  "ParentImage": "C:\\Windows\\System32\\cmd.exe",
+  "ParentCommandLine": "\"C:\\WINDOWS\\system32\\cmd.exe\" /c findstr /s /i /n TODO *.py *.js "
+}
